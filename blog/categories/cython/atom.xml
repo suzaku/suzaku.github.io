@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cython | Curiosity Driven Development]]></title>
+  <link href="http://suzaku.github.io/blog/categories/cython/atom.xml" rel="self"/>
+  <link href="http://suzaku.github.io/"/>
+  <updated>2015-02-24T11:30:43+08:00</updated>
+  <id>http://suzaku.github.io/</id>
+  <author>
+    <name><![CDATA[Satoru Logic]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Define and Run Cython Function With IPython]]></title>
+    <link href="http://suzaku.github.io/blog/2015/02/24/define-and-run-cython-function-with-ipython/"/>
+    <updated>2015-02-24T10:47:52+08:00</updated>
+    <id>http://suzaku.github.io/blog/2015/02/24/define-and-run-cython-function-with-ipython</id>
+    <content type="html"><![CDATA[<p>I learned this trick in the book <a href="http://www.amazon.com/Cython-Kurt-W-Smith/dp/1491901551/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1424746332&amp;sr=1-1&amp;keywords=cython">Cython: A Guide for Python Programmer</a>.</p>
+
+<p>After having both <em>Cython</em> and <em>IPython</em> installed, we can load the <em>cythonmagic</em> extension with:</p>
+
+<pre><code class="python">In [1]: %load_ext cythonmagic
+</code></pre>
+
+<p>Now we have 3 extra magic functions in the session:</p>
+
+<ul>
+<li><code>%%cython</code> will cythonize and compile contents of the code cell.
+<code>python
+In [4]: %%cython
+ ...: def sum_up(*numbers):
+ ...:     cdef int s = 0
+ ...:     for n in numbers:
+ ...:         s += n
+ ...:     return s
+ ...:
+In [5]: sum_up(1, 2, 3)
+Out[5]: 6
+</code></li>
+<li><code>%%cython_inline</code> simply passes the body of the cell to <a href="http://docs.cython.org/src/reference/compilation.html#compiling-with-cython-inline" target="_blank">Cython.inline</a>
+and returns the result.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="o">%%</span><span class="n">cython_inline</span>
+</span><span class='line'>   <span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">.</span><span class="p">:</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+</span><span class='line'>   <span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">.</span><span class="p">:</span>
+</span><span class='line'><span class="n">Out</span><span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="mf">6.28</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">*</span> <span class="sb">`%%cython_pyximport`</span> <span class="ow">is</span> <span class="n">similar</span> <span class="n">to</span> <span class="sb">`%%cython`</span><span class="p">,</span> <span class="k">except</span> <span class="n">that</span> <span class="n">the</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="n">shell</span> <span class="n">are</span> <span class="n">written</span> <span class="n">to</span> <span class="n">a</span> <span class="sb">`.pyx`</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">working</span> <span class="n">directory</span> <span class="ow">and</span> <span class="n">imported</span> <span class="n">using</span> <span class="sb">`pyximport`</span><span class="p">,</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">module</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">required</span><span class="o">.</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">python</span>
+</span><span class='line'><span class="n">In</span> <span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="o">%%</span><span class="n">cython_pyximport</span> <span class="n">double</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">.</span><span class="p">:</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">.</span><span class="p">:</span>     <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">.</span><span class="p">:</span>
+</span><span class='line'><span class="n">In</span> <span class="p">[</span><span class="mi">22</span><span class="p">]:</span> <span class="err">!</span><span class="n">ls</span> <span class="o">*.</span><span class="n">pyx</span>
+</span><span class='line'><span class="n">double</span><span class="o">.</span><span class="n">pyx</span>
+</span><span class='line'><span class="n">In</span> <span class="p">[</span><span class="mi">23</span><span class="p">]:</span> <span class="n">f</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span><span class='line'><span class="n">Out</span><span class="p">[</span><span class="mi">23</span><span class="p">]:</span> <span class="mf">8.0</span>
+</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
+  
+</feed>
