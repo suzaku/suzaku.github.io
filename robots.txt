@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://suzaku.github.io/sitemap.xml 
