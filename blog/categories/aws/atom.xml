@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Aws | Curiosity Driven Development]]></title>
+  <link href="http://suzaku.github.io/blog/categories/aws/atom.xml" rel="self"/>
+  <link href="http://suzaku.github.io/"/>
+  <updated>2015-02-28T16:23:30+08:00</updated>
+  <id>http://suzaku.github.io/</id>
+  <author>
+    <name><![CDATA[Satoru Logic]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[What You Need to Know About AWS CloudFormation?]]></title>
+    <link href="http://suzaku.github.io/blog/2015/02/28/what-you-need-to-know-about-aws-cloudformation/"/>
+    <updated>2015-02-28T15:27:57+08:00</updated>
+    <id>http://suzaku.github.io/blog/2015/02/28/what-you-need-to-know-about-aws-cloudformation</id>
+    <content type="html"><![CDATA[<ol>
+<li>CloudFormattion is free to use;</li>
+<li>You supply a template and any required parameters to CloudFormation to create or update a stack;</li>
+<li>A template is a JSON-formatted text file (<a href="https://s3.amazonaws.com/cloudformation-templates-us-east-1/WordPress_Single_Instance_With_RDS.template">example</a>);</li>
+<li>Parameter can be used to specify sensitive information which you don&rsquo;t want to store in the template;</li>
+<li>If not all resources are created or updated successfully, CloudFormation will rollback every change;</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
