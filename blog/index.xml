@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Curiosity Driven Writing</title>
-    <link>http://satoru.rocks/</link>
-    <description>Recent content on Curiosity Driven Writing</description>
+    <title>Blogs on Curiosity Driven Writing</title>
+    <link>http://satoru.rocks/blog/</link>
+    <description>Recent content in Blogs on Curiosity Driven Writing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 10 May 2016 09:04:07 +0800</lastBuildDate>
-    <atom:link href="http://satoru.rocks/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://satoru.rocks/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>what you need to know about aws cloudformation</title>
