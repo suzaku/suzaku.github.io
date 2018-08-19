@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://satoru.rocks/</loc>
-    <lastmod>2016-05-13T17:16:52+08:00</lastmod>
-    <priority>0</priority>
+    <loc>http://satoru.rocks/2018/08/fastest-way-to-serialize-array/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
   </url>
   
   <url>
@@ -20,6 +20,77 @@
   <url>
     <loc>http://satoru.rocks/2016/05/define-and-run-cython-function-with-ipython/</loc>
     <lastmod>2016-05-10T08:32:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/blog/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/development/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/categories/development/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/golang/</loc>
+    <lastmod>2016-05-13T17:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/categories/golang/</loc>
+    <lastmod>2016-05-13T17:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/numpy/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/python/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/categories/python/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/serialization/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://satoru.rocks/tags/</loc>
+    <lastmod>2018-08-19T11:55:00+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

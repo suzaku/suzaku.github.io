@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="//gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.47" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> Curiosity Driven Writing &middot; Curiosity Driven Writing </title>
+  <title>Curiosity Driven Writing</title>
 
   
-  <link rel="stylesheet" href="http://satoru.rocks/css/poole.css">
-  <link rel="stylesheet" href="http://satoru.rocks/css/syntax.css">
-  <link rel="stylesheet" href="http://satoru.rocks/css/hyde.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.png">
 
   
   <link href="http://satoru.rocks/index.xml" rel="alternate" type="application/rss+xml" title="Curiosity Driven Writing" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/docco.min.css">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-60059951-1', 'auto');
-ga('send', 'pageview');
-</script>
-
 </head>
 
-<body class="theme-base-0d ">
-
-<div class="sidebar">
+  <body class="theme-base-0d ">
+  <div class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <a href="http://satoru.rocks/"><h1>Curiosity Driven Writing</h1></a>
@@ -49,185 +39,79 @@ ga('send', 'pageview');
     </div>
 
     <ul class="sidebar-nav">
-      <li><a href="/">Home</a> </li>
-      
+      <li><a href="http://satoru.rocks/">Home</a> </li>
+      <li><a href="/2018/08/fastest-way-to-serialize-array/"> Fastest way to serialize an array in Python </a></li>
     </ul>
 
-    <a href="https://github.com/suzaku"><i class="fa fa-github-square"></i></a>&nbsp;&nbsp;
-
-
-    <p>&copy; 2016. All rights reserved. </p>
+    <p>&copy; 2018. All rights reserved. </p>
   </div>
 </div>
-
 
     <div class="content container">
-<div class="posts">
+    <div class="posts">
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://satoru.rocks/2018/08/fastest-way-to-serialize-array/">Fastest way to serialize an array in Python</a>
+  </h1>
+  <span class="post-date">Sun, Aug 19, 2018</span>
+  To kick start the discussion, let&rsquo;s first assume that we have the following 2-D numpy array:
+import numpy as np matrix = np.random.random((10000, 384)).astype(np.float32) Approaches tried  The built-in pickle
+In Python, the built-in pickle module is often used to serialize/deserialize data. Here&rsquo;s how it works:
+import pickle pickled_dumped = pickle.dumps(matrix, protocol=pickle.HIGHEST_PROTOCOL) pickle.loads(pickled_dumped)  MessagePack
+MessagePack is known to a fast and compact serialization format. But it can&rsquo;t serialize a numpy array directly, so let&rsquo;s first assume that we&rsquo;ll use a nested Python list instead.
+  
+  <div class="read-more-link">
+    <a href="/2018/08/fastest-way-to-serialize-array/">Read More…</a>
+  </div>
+  
+</div><div class="post">
+  <h1 class="post-title">
+    <a href="http://satoru.rocks/2016/05/be-careful-of-shared-array/">Be careful of shared array</a>
+  </h1>
+  <span class="post-date">Fri, May 13, 2016</span>
+  In Go, when you take a slice of an existing slice, you get two slices sharing the same underlying array.
+package main import &#34;fmt&#34; func main() { s1 := []int{1, 2, 3} // A slice of s1 =&gt; {2, 3}  s2 := s1[1:3] // The 0th element of s2 is the 1th element of s1  s2[0] = 42 fmt.Println(s1) // [1 42 3]  fmt.Println(s2) // [42 3] } And we can append items to slices with the built-in function append.
+  
+  <div class="read-more-link">
+    <a href="/2016/05/be-careful-of-shared-array/">Read More…</a>
+  </div>
+  
+</div><div class="post">
+  <h1 class="post-title">
+    <a href="http://satoru.rocks/2016/05/what-you-need-to-know-about-aws-cloudformation/">what you need to know about aws cloudformation</a>
+  </h1>
+  <span class="post-date">Tue, May 10, 2016</span>
+   CloudFormattion is free to use; You supply a template and any required parameters to CloudFormation to create or update a stack; A template is a JSON-formatted text file (example); Parameter can be used to specify sensitive information which you don&rsquo;t want to store in the template; If not all resources are created or updated successfully, CloudFormation will rollback every change;  
+  
+</div><div class="post">
+  <h1 class="post-title">
+    <a href="http://satoru.rocks/2016/05/define-and-run-cython-function-with-ipython/">define and run cython function with ipython</a>
+  </h1>
+  <span class="post-date">Tue, May 10, 2016</span>
+  I learned this trick in the book Cython: A Guide for Python Programmer.
+After having both Cython and IPython installed, we can load the cythonmagic extension with:
+In [1]: %load_ext cythonmagic Now we have 3 extra magic functions in the session:
+ %%cython will cythonize and compile contents of the code cell.  In [4]: %%cython ...: def sum_up(*numbers): ...: cdef int s = 0 ...: for n in numbers: .
+  
+  <div class="read-more-link">
+    <a href="/2016/05/define-and-run-cython-function-with-ipython/">Read More…</a>
+  </div>
+  
+</div>
+</div>
+    </div>
 
-      
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://satoru.rocks/2016/05/be-careful-of-shared-array/">
-        Be careful of shared array
-      </a>
-    </h1>
-
-    <span class="post-date">Fri, May 13, 2016</span>
-
-    <p>In Go, when you take a slice of an existing slice, you get two slices sharing the same underlying array.</p>
-
-<pre><code class="language-go">package main
-
-import &quot;fmt&quot;
-
-func main() {
-    s1 := []int{1, 2, 3}
-    // A slice of s1 =&gt; {2, 3}
-    s2 := s1[1:3]
-
-    // The 0th element of s2 is the 1th element of s1
-    s2[0] = 42
-
-    fmt.Println(s1)  // [1 42 3]
-    fmt.Println(s2)  // [42 3]
-}
-</code></pre>
-
-<p>And we can append items to slices with the built-in function <code>append</code>.</p>
-
-<pre><code class="language-go">package main
-
-import &quot;fmt&quot;
-
-func main() {
-    s1 := []int{1, 2, 3}
-    // A slice of s1 =&gt; {2}
-    s2 := s1[1:2]
-
-    s2 = append(s2, 42)
-
-    fmt.Println(s1)  // [1 2 42]
-    fmt.Println(s2)  // [2 42]
-}
-</code></pre>
-
-<p>Buf if there&rsquo;s not available capacity for appending new items, <code>append</code> would create a new bigger underlying array for you, and the returned slice will point to this new array.</p>
-
-<pre><code class="language-go">package main
-
-import &quot;fmt&quot;
-
-func main() {
-    s1 := []int{1, 2, 3}
-    // Create a slice of s1 =&gt; {2, 3}
-    // The len of s2 would be 2, and the capacity would also be 2
-    // Which is to say, s2 is full
-    s2 := s1[1:3]
-
-    // Not available capacity for the new item
-    // `append` helps us replace the underlying array with a bigger one
-    s2 = append(s2, 42)
-
-    // Now that the underlying array for s2 is a different one
-    // updating an item of s2 would have no effect on s1
-    s2[0] = 11
     
-    fmt.Println(s1) // [1 2 3]
-    fmt.Println(s2) // [11 3 42]
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-60059951-1', 'auto');
+	
+	ga('send', 'pageview');
 }
-</code></pre>
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
-<p>So we need to be careful, two related slices may independently grow and change their underlying array.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://satoru.rocks/2016/05/what-you-need-to-know-about-aws-cloudformation/">
-        what you need to know about aws cloudformation
-      </a>
-    </h1>
-
-    <span class="post-date">Tue, May 10, 2016</span>
-
-    <ol>
-<li>CloudFormattion is free to use;</li>
-<li>You supply a template and any required parameters to CloudFormation to create or update a stack;</li>
-<li>A template is a JSON-formatted text file (<a href="https://s3.amazonaws.com/cloudformation-templates-us-east-1/WordPress_Single_Instance_With_RDS.template">example</a>);</li>
-<li>Parameter can be used to specify sensitive information which you don&rsquo;t want to store in the template;</li>
-<li>If not all resources are created or updated successfully, CloudFormation will rollback every change;</li>
-</ol>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://satoru.rocks/2016/05/define-and-run-cython-function-with-ipython/">
-        define and run cython function with ipython
-      </a>
-    </h1>
-
-    <span class="post-date">Tue, May 10, 2016</span>
-
-    <p>I learned this trick in the book <a href="http://www.amazon.com/Cython-Kurt-W-Smith/dp/1491901551/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1424746332&amp;sr=1-1&amp;keywords=cython">Cython: A Guide for Python Programmer</a>.</p>
-
-<p>After having both <em>Cython</em> and <em>IPython</em> installed, we can load the <em>cythonmagic</em> extension with:</p>
-
-<pre><code class="language-python">In [1]: %load_ext cythonmagic
-</code></pre>
-
-<p>Now we have 3 extra magic functions in the session:</p>
-
-<ul>
-<li><code>%%cython</code> will cythonize and compile contents of the code cell.</li>
-</ul>
-
-<pre><code class="language-python">In [4]: %%cython
-   ...: def sum_up(*numbers):
-   ...:     cdef int s = 0
-   ...:     for n in numbers:
-   ...:         s += n
-   ...:     return s
-   ...:
-In [5]: sum_up(1, 2, 3)
-Out[5]: 6
-</code></pre>
-
-<ul>
-<li><code>%%cython_inline</code> simply passes the body of the cell to <a href="http://docs.cython.org/src/reference/compilation.html#compiling-with-cython-inline" target="_blank">Cython.inline</a>
-and returns the result.</li>
-</ul>
-
-<pre><code class="language-python">In [16]: x = 3.14
-
-In [17]: y = 2
-
-In [18]: %%cython_inline
-   ....: return x * y
-   ....:
-Out[18]: 6.28
-</code></pre>
-
-<ul>
-<li><code>%%cython_pyximport</code> is similar to <code>%%cython</code>, except that the contents of the code shell are written to a <code>.pyx</code> file in the current working directory and imported using <code>pyximport</code>, and a module name is required.</li>
-</ul>
-
-<pre><code class="language-python">In [21]: %%cython_pyximport double
-....: def f(x):
-....:     return 2.0 * x
-....:
-In [22]: !ls *.pyx
-double.pyx
-In [23]: f(4)
-Out[23]: 8.0
-</code></pre>
-
-  </div>
-  
-</div>
-</div>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>

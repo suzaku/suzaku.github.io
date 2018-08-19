@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.47" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Fastest way to serialize an array in Python &middot; Curiosity Driven Writing</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://satoru.rocks/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Curiosity Driven Writing" />
+
+  
+</head>
+
+  <body class="theme-base-0d ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://satoru.rocks/"><h1>Curiosity Driven Writing</h1></a>
+      <p class="lead">
+       Learning by Writing 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="http://satoru.rocks/">Home</a> </li>
+      <li><a href="/2018/08/fastest-way-to-serialize-array/"> Fastest way to serialize an array in Python </a></li>
+    </ul>
+
+    <p>&copy; 2018. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Fastest way to serialize an array in Python</h1>
+  <span class="post-date">Sun, Aug 19, 2018</span>
+  
+
+<p>To kick start the discussion, let&rsquo;s first assume that we have the following 2-D <code>numpy</code> array:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+matrix <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random((<span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">384</span>))<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>float32)</code></pre></div>
+<h2 id="approaches-tried">Approaches tried</h2>
+
+<ol>
+<li><p>The built-in <code>pickle</code></p>
+
+<p>In Python, the built-in <code>pickle</code> module is often used to serialize/deserialize data.
+Here&rsquo;s how it works:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pickle
+pickled_dumped <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>dumps(matrix, protocol<span style="color:#f92672">=</span>pickle<span style="color:#f92672">.</span>HIGHEST_PROTOCOL)
+pickle<span style="color:#f92672">.</span>loads(pickled_dumped) </code></pre></div></li>
+
+<li><p>MessagePack</p>
+
+<p><a href="https://msgpack.org/">MessagePack</a> is known to a fast and compact serialization format.
+But it can&rsquo;t serialize a <code>numpy</code> array directly, so let&rsquo;s first assume that we&rsquo;ll use a nested Python <code>list</code> instead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">matrix_as_list <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>tolist()</code></pre></div>
+<p>Here&rsquo;s how it works:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Note how we set `use_single_float` to make sure float32 is used</span>
+msgpack_dumped <span style="color:#f92672">=</span> msgpack<span style="color:#f92672">.</span>dumps(matrix_as_list, use_single_float<span style="color:#f92672">=</span>True)
+msgpack<span style="color:#f92672">.</span>loads(msgpack_dumped)</code></pre></div></li>
+
+<li><p>pyarrow</p>
+
+<p><code>pyarrow</code> is the Python library for <a href="https://github.com/apache/arrow/">Apache Arrow</a>, which enabled fast serialization through zero-copy memory sharing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pyarrow_dumped <span style="color:#f92672">=</span> pyarrow<span style="color:#f92672">.</span>serialize(matrix)<span style="color:#f92672">.</span>to_buffer()<span style="color:#f92672">.</span>to_pybytes()
+pyarrow<span style="color:#f92672">.</span>deserialize(pyarrow_dumped)</code></pre></div></li>
+
+<li><p>Non-general DIY Serialization</p>
+
+<p>This is not a general serialization solution. It can only serialize/deserialize a 2-D <code>numpy</code> array.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> struct
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">serialize</span>(mat):
+    n_rows <span style="color:#f92672">=</span> len(mat)
+    n_columns <span style="color:#f92672">=</span> len(mat[<span style="color:#ae81ff">0</span>])
+    shape <span style="color:#f92672">=</span> struct<span style="color:#f92672">.</span>pack(<span style="color:#e6db74">&#39;&gt;II&#39;</span>, n_rows, n_columns)
+    <span style="color:#66d9ef">return</span> shape <span style="color:#f92672">+</span> mat<span style="color:#f92672">.</span>tobytes()
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deserialize</span>(data):
+    n_rows, n_columns <span style="color:#f92672">=</span> struct<span style="color:#f92672">.</span>unpack(<span style="color:#e6db74">&#39;&gt;II&#39;</span>, data[:<span style="color:#ae81ff">8</span>])
+    mat <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>frombuffer(data, dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>float32, offset<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+    mat<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (n_rows, n_columns)
+    <span style="color:#66d9ef">return</span> mat
+
+diy_dumped <span style="color:#f92672">=</span> serialize(matrix)
+deserialize(diy_dumped)</code></pre></div></li>
+</ol>
+
+<h2 id="comparison">Comparison</h2>
+
+<p>Now let&rsquo;s compare these approaches in the following metrics:</p>
+
+<ol>
+<li>Size (of serialized data, in bytes)</li>
+<li>T_dump (Serializing time)</li>
+<li>T_load (Deserializaing time)</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Size</th>
+<th>T_dump</th>
+<th>T_load</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pickle</td>
+<td>15360156</td>
+<td>15.7 ms</td>
+<td>6.01 ms</td>
+</tr>
+
+<tr>
+<td>MessagePack</td>
+<td>19230003</td>
+<td>97.6 ms</td>
+<td>179 ms</td>
+</tr>
+
+<tr>
+<td>pyarrow</td>
+<td>15360704</td>
+<td>17.3 ms</td>
+<td>32.8 µs</td>
+</tr>
+
+<tr>
+<td>DIY</td>
+<td><span style="color: red">15360008</span></td>
+<td><span style="color: red">12.5 ms</span></td>
+<td><span style="color: red">2.32 µs</span></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p><code>MessagePack</code> dumps the biggest output and take the longest to serialize/deserialize. This may be related to <a href="https://github.com/msgpack/msgpack/blob/master/spec.md#float-format-family">the way</a> <code>MessagePack</code> encode floating point numbers: each <code>float32</code> takes 5 bytes, not 4 bytes.</p>
+
+<p>The DIY solution has only 8 bytes of overhead in size for the shape of the 2-D array, and is the fastest one. It&rsquo;s not a general solution, but it demonstrate that we can fallback to this approach when size and speed of serialization are the bottlenecks.</p>
+
+<p><code>pyarrow</code> is the fastest general solution I have tried in this experiment, though the overhead in size is a little larger than when using <code>pickle</code>.
+The good thing about <code>pyarrow</code> is that the time taken to deserialize doesn&rsquo;t grow linearly with the size of array, it&rsquo;s about 32 µs even when I make the array 5 times larger (This is because <code>pyarrow</code> use zero-copy memory sharing to avoid moving the array around. It&rsquo;s why I use <code>np.frombuffer</code> in the DIY approach).</p>
+
+<p>But if what you have is not a small number of big arrays, but a massive number of small arrays, using <code>pyarrow</code> may not be the right choice. Because even for a 2-D array with only 1 row, it still takes about 20 µs, there are some fixed overhead there.</p>
+
+</div>
+
+
+    </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-60059951-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

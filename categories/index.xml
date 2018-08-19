@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Curiosity Driven Writing</title>
+    <link>http://satoru.rocks/categories/</link>
+    <description>Recent content in Categories on Curiosity Driven Writing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://satoru.rocks/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Development</title>
+      <link>http://satoru.rocks/categories/development/</link>
+      <pubDate>Sun, 19 Aug 2018 11:55:00 +0800</pubDate>
+      
+      <guid>http://satoru.rocks/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>http://satoru.rocks/categories/golang/</link>
+      <pubDate>Fri, 13 May 2016 17:16:52 +0800</pubDate>
+      
+      <guid>http://satoru.rocks/categories/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://satoru.rocks/categories/python/</link>
+      <pubDate>Sun, 19 Aug 2018 11:55:00 +0800</pubDate>
+      
+      <guid>http://satoru.rocks/categories/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
